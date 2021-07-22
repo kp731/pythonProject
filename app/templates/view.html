@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="card" class="m-5 p-2">
+    <h5 class="card-title">{{ travel.Month }}</h5>
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Column_1958: {{ travel.Column_1958 }}</li>
+        <li class="list-group-item">Column_1959: {{ travel.Column_1959 }}</li>
+        <li class="list-group-item">Column_1960: {{ travel.Column_1960 }}</li>
+    </ul>
+    <div class="card-body">
+        <a href="/edit/{{travel.id}}" class="card-link btn btn-primary">edit</a>
+    </div>
+<form action="/delete/{{travel.id}}" method="post"><button type="submit" class="btn btn-danger">Delete</button></form>
+</div>
+
+{% endblock %}

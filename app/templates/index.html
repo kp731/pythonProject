@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Month</th>
+        <th scope="col">Column_1958</th>
+        <th scope="col">Column_1959</th>
+        <th scope="col">Column_1960</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for travels in travel %}
+    <tr>
+        <td><a href="view/{{travel.id}}">{{ travel.Month }}</a></td>
+        <td>{{ travel.Column_1958 }}</td>
+        <td>{{ travel.Column_1959 }}</td>
+        <td>{{ travel.Column_1960 }}</td>
+
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

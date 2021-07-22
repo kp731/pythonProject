@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+<form action="/travel/new" method="POST">
+    <div class="row">
+        <div class="col">
+            <label for="Month">Month</label>
+            <input id="Month" type="text" class="form-control" placeholder="Month" name="Month">
+        </div>
+        <div class="col">
+            <label for="Column_1958">Column_1958</label>
+            <input id="Column_1958" type="text" class="form-control" placeholder="Column_1958"
+                   name="Column_1958">
+        </div>
+        <div class="col">
+            <label for="Column_1959">Column_1959</label>
+            <input id="Column_1959" type="text" class="form-control" placeholder="Column_1959" name="Column_1959">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label for="Column_1960">Column_1960</label>
+            <input id="Column_1960" type="text" class="form-control" placeholder="Column_1960" name="Column_1960">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">Success</button>
+
+</form>
+
+{% endblock %}
