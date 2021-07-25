@@ -19,11 +19,11 @@ mysql.init_app(app)
 
 @app.route('/', methods=['GET'])
 def index():
-    user = {'username': "Miguel's Project"}
+    user = {'username': "Kartavya's Project"}
     cursor = mysql.get_db().cursor()
     cursor.execute('SELECT * FROM airtravel')
     result = cursor.fetchall()
-    return render_template('index.html', title='Home', user=user, persons=result)
+    return render_template('index.html', title='Home', user=user, travels=result)
 
 
 @app.route('/view/<int:travel_id>', methods=['GET'])
@@ -31,7 +31,7 @@ def record_view(travel_id):
     cursor = mysql.get_db().cursor()
     cursor.execute('SELECT * FROM airtravel WHERE id=%s', travel_id)
     result = cursor.fetchall()
-    return render_template('view.html', title='View Form', person=result[0])
+    return render_template('view.html', title='View Form', travel=result[0])
 
 
 @app.route('/edit/<int:travel_id>', methods=['GET'])
@@ -39,16 +39,16 @@ def form_edit_get(travel_id):
     cursor = mysql.get_db().cursor()
     cursor.execute('SELECT * FROM airtravel WHERE id=%s', travel_id)
     result = cursor.fetchall()
-    return render_template('edit.html', title='Edit Form', person=result[0])
+    return render_template('edit.html', title='Edit Form', travel=result[0])
 
 
 @app.route('/edit/<int:travel_id>', methods=['POST'])
 def form_update_post(travel_id):
     cursor = mysql.get_db().cursor()
     inputData = (request.form.get('Month'), request.form.get('Column_1958'), request.form.get('Column_1959'),
-                 request.form.get('Column_1960'),travel_id)
+                 request.form.get('Column_1960'), travel_id)
     sql_update_query = """UPDATE airtravel t SET t.Month = %s, t.Column_1958 = %s, t.Column_1959 = %s, t.Column_1960 = 
-    %s,  WHERE t.id = %s """
+    %s  WHERE t.id = %s """
     cursor.execute(sql_update_query, inputData)
     mysql.get_db().commit()
     return redirect("/", code=302)
@@ -58,7 +58,7 @@ def form_insert_get():
     return render_template('new.html', title='New Person Form')
 
 
-@app.route('/persons/new', methods=['POST'])
+@app.route('/travel/new', methods=['POST'])
 def form_insert_post():
     cursor = mysql.get_db().cursor()
     inputData = (request.form.get('Month'), request.form.get('Column_1958'), request.form.get('Column_1959'),
@@ -87,7 +87,7 @@ def api_browse() -> str:
     return resp
 
 
-@app.route('/api/v1/persons/<int:travel_id>', methods=['GET'])
+@app.route('/api/v1/travel/<int:travel_id>', methods=['GET'])
 def api_retrieve(travel_id) -> str:
     cursor = mysql.get_db().cursor()
     cursor.execute('SELECT * FROM airtravel WHERE id=%s', travel_id)
