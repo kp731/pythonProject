@@ -99,19 +99,35 @@ def api_retrieve(travel_id) -> str:
 
 @app.route('/api/v1/travel/', methods=['POST'])
 def api_add() -> str:
+    content = request.json
+    cursor = mysql.get_db().cursor()
+    inputData = (content['Month'], content['Column_1958'], content['Column_1959'], content['Column_1960'])
+    sql_insert_query = """INSERT INTO airtravel(Month,Column_1958,Column_1959,Column_1960) VALUES (%s, %s,%s, %s)"""
+    cursor.execute(sql_insert_query, inputData)
+    mysql.get_db().commit()
     resp = Response(status=201, mimetype='application/json')
     return resp
 
 
 @app.route('/api/v1/travel/<int:travel_id>', methods=['PUT'])
 def api_edit(travel_id) -> str:
-    resp = Response(status=201, mimetype='application/json')
+    cursor = mysql.get_db().cursor()
+    content = request.json
+    inputData = (content['Month'], content['Column_1958'], content['Column_1959'], content['Column_1960'], travel_id)
+    sql_update_query = """UPDATE airtravel t SET t.Month=%s, t.Column_1958=%s, t.Column_1959=%s, t.Column_1960=%s WHERE t.id = %s"""
+    cursor.execute(sql_update_query, inputData)
+    mysql.get_db().commit()
+    resp = Response(status=200, mimetype='application/json')
     return resp
 
 
 @app.route('/api/travel/<int:travel_id>', methods=['DELETE'])
 def api_delete(travel_id) -> str:
-    resp = Response(status=210, mimetype='application/json')
+    cursor = mysql.get_db().cursor()
+    sql_delete_query = """DELETE FROM airtravel WHERE id=%s"""
+    cursor.execute(sql_delete_query, travel_id)
+    mysql.get_db().commit()
+    resp = Response(status=200, mimetype='application/json')
     return resp
 
 
