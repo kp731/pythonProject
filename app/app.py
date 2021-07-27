@@ -117,7 +117,7 @@ def api_edit(travel_id) -> str:
     sql_update_query = """UPDATE airtravel t SET t.Month=%s, t.Column_1958=%s, t.Column_1959=%s, t.Column_1960=%s WHERE t.id = %s"""
     cursor.execute(sql_update_query, inputData)
     mysql.get_db().commit()
-    resp = Response(status=200, mimetype='application/json')
+    resp = Response(status=201, mimetype='application/json')
     return resp
 
 
@@ -127,7 +127,7 @@ def api_delete(travel_id) -> str:
     sql_delete_query = """DELETE FROM airtravel WHERE id=%s"""
     cursor.execute(sql_delete_query, travel_id)
     mysql.get_db().commit()
-    resp = Response(status=200, mimetype='application/json')
+    resp = Response(status=210, mimetype='application/json')
     return resp
 
 
